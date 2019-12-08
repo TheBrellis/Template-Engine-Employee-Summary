@@ -1,15 +1,15 @@
 function managerBlock () {
     return `<div class="card m-2">
     <div class="card-header">
-        <h1>${employee-name}</h1>
+        <h1>${this.name}</h1>
         <hr>
         <h2><i class="fas fa-briefcase"></i> Manager</h2>
     </div>
     <div class= "card-body">
             <div class="list-group">
-                <p class="list-group-item list-group-item-action list-group-item-dark">ID: <span>${employee-id}</span></p>
-                <p class="list-group-item list-group-item-action list-group-item-dark">Email: <span>${employee-email}</span></p>
-                <p class="list-group-item list-group-item-action list-group-item-dark">Office Number: <span>${manager-office}</span></p>
+                <p class="list-group-item list-group-item-action list-group-item-dark">ID: <span>${this.id}</span></p>
+                <p class="list-group-item list-group-item-action list-group-item-dark">Email: <span>${this.email}</span></p>
+                <p class="list-group-item list-group-item-action list-group-item-dark">Office Number: <span>${this.officeNumber}</span></p>
             </div>
     </div>
 </div>`
@@ -18,15 +18,15 @@ function managerBlock () {
 function engineerBlock () {
     return ` <div class="card m-2">
     <div class="card-header">
-        <h1>${employee-name}</h1>
+        <h1>${this.name}</h1>
         <hr>
         <h2><i class="fas fa-screwdriver"></i> Engineer</h2>
     </div>
     <div class= "card-body">
             <div class="list-group">
-                <p class="list-group-item list-group-item-action list-group-item-dark">ID: <span>${employee-id}</span></p>
-                <p class="list-group-item list-group-item-action list-group-item-dark">Email: <span>${employee-email}</span></p>
-                <p class="list-group-item list-group-item-action list-group-item-dark">GitHub: <span>${engineer-github}</span></p>
+                <p class="list-group-item list-group-item-action list-group-item-dark">ID: <span>${this.id}</span></p>
+                <p class="list-group-item list-group-item-action list-group-item-dark">Email: <span>${this.email}</span></p>
+                <p class="list-group-item list-group-item-action list-group-item-dark">GitHub: <span>${this.github}</span></p>
             </div>
     </div>
 </div>`
@@ -35,21 +35,21 @@ function engineerBlock () {
 function internBlock () {
     return `<div class="card m-2">
     <div class="card-header">
-        <h1>${employee-name}</h1>
+        <h1>${this.name}</h1>
         <hr>
         <h2><i class="fas fa-university"></i> Intern</h2>
     </div>
     <div class= "card-body">
             <div class="list-group">
-                <p class="list-group-item list-group-item-action list-group-item-dark">ID: <span>${employee-id}</span></p>
-                <p class="list-group-item list-group-item-action list-group-item-dark">Email: <span>${employee-email}</span></p>
-                <p class="list-group-item list-group-item-action list-group-item-dark">GitHub: <span>${intern-school}</span></p>
+                <p class="list-group-item list-group-item-action list-group-item-dark">ID: <span>${this.id}</span></p>
+                <p class="list-group-item list-group-item-action list-group-item-dark">Email: <span>${this.email}</span></p>
+                <p class="list-group-item list-group-item-action list-group-item-dark">GitHub: <span>${this.school}</span></p>
             </div>
     </div>
 </div>`
 };
 
-function htmlBlockHeader () {
+function headerBlock() {
     return `<!DOCTYPE html>
     <html lang="en">
     
@@ -77,10 +77,12 @@ function htmlBlockHeader () {
     <!---===============END OF HEAD CODE BLOCK====================-->`
 };
 
-function footCodeBlock () {
+function footerBlock() {
     return `</div>
     </div>
 </div>  
 </body>
 </html>`
 };
+
+module.exports = managerBlock, engineerBlock, internBlock, headerBlock, footerBlock;
