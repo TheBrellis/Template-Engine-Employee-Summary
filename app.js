@@ -1,4 +1,7 @@
 const inquirer = require("inquirer");
+const Manager = require("./lib/Manager.js");
+const Engineer = require("./lib/Engineer.js");
+const Intern = require("./lib/Intern.js");
 
 
 const team = [];
@@ -58,5 +61,6 @@ function addMember(role){
 /* ==========================================================*/
 //START OF APP SEQUENCE 
 /* ==========================================================*/
-console.log("Please build your team");
+console.log("Please build your team");s
 initalize("manager");
+
