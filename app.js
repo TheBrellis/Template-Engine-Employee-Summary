@@ -2,7 +2,9 @@ const inquirer = require("inquirer");
 const Manager = require("./lib/Manager.js");
 const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
-const htmlBlocks = require("./lib/htmlBlocks.js")
+const htmlBlocks = require("./lib/htmlBlocks.js");
+const fs = require("fs");
+const open = require("open");
 
 const team = [htmlBlocks.header(), htmlBlocks.footer()];
 
@@ -30,7 +32,7 @@ function initalize(){
     }
   ])
 }
-function nextMember(){
+function buildTeam(){
   inquirer.prompt([
     {
       type: "list",
@@ -64,7 +66,7 @@ function nextMember(){
       ]).then((answers)=>{
         let engineer = new Engineer(answers.name, answers.id, answers.email,answers.github);
         team.splice(team.length-1,0,engineer.getHTML());
-        nextMember();
+        buildTeam();
       })
     }
     if (answer.role === "Intern"){
@@ -92,12 +94,22 @@ function nextMember(){
       ]).then((answers)=>{
         let intern = new Intern(answers.name, answers.id, answers.email,answers.school);
         team.splice(team.length-1,0,intern.getHTML());
-        nextMember();
+        buildTeam();
       })
     }
-    return console.log(team);
+
+    return printHTML(team);
   });
 }
+function printHTML(team){
+  fs.writeFile("Team.html",team, (err) => {
+    if(err) {
+      throw err;
+    };
+    console.log("Your team has been constructed!");
+  });
+  open("Team.html");
+  };
 
 /* ==========================================================*/
 //START OF APP SEQUENCE 
@@ -106,7 +118,7 @@ initalize()
 .then((answers)=>{
   const manager = new Manager(answers.name, answers.id, answers.email,answers.officeNumber);
   team.splice(team.length-1,0,manager.getHTML());
-  nextMember()
+  buildTeam();
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////
