@@ -4,41 +4,8 @@ const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
 const htmlBlocks = require("./lib/htmlBlocks.js")
 
-const team = [];
-team.push(htmlBlocks.header());
+const team = [htmlBlocks.header(), htmlBlocks.footer()];
 
-  /*
-  if (role === "Engineer"){
-    let answers2 = inquirer.prompt([
-      {
-        type: "input",
-        name: "gitHub",
-        message: `What is your engineer's GitHub?`
-      }
-    ])
-    return answers2
-  }
-  if (role === "Intern"){
-    let answers2 = inquirer.prompt([
-    {
-      type: "input",
-      name: "school",
-      message: `What is your intern's school?`
-    }
-  ]) 
-  }
-
-  initalize(role)
-  let answers1 = inquirer.prompt();
-  let answer2 = inquirer.prompt([
-    {
-      type: "list",
-      name: "role",
-      message:"What type of team member would you like to add?",
-      choices: ["Engineer","Intern","I don't want to add any more team members"]
-    }
-    ]);
-    */
 function initalize(){
   return inquirer.prompt([
     {
@@ -71,14 +38,75 @@ function nextMember(){
       message:"What type of team member would you like to add?",
       choices: ["Engineer","Intern","I don't want to add any more team members"]
     }
+  ]).then((answer)=> {
+    if (answer.role === "Engineer"){
+      return inquirer.prompt([
+        {
+          type: "input",
+          name: "name",
+          message: `What is your engineer's name?`
+        },
+        {
+          type: "input",
+          name: "id",
+          message: `What is your engineer's ID?`
+        },
+        {
+          type: "input",
+          name: "email",
+          message: `What is your engineer's email?`
+        },
+        {
+          type: "input",
+          name: "github",
+          message: `What is your engineer's GitHub??`
+        }
+      ]).then((answers)=>{
+        let engineer = new Engineer(answers.name, answers.id, answers.email,answers.github);
+        team.splice(team.length-1,0,engineer.getHTML());
+        nextMember();
+      })
+    }
+    if (answer.role === "Intern"){
+      return inquirer.prompt([
+        {
+          type: "input",
+          name: "name",
+          message: `What is your intern's name?`
+        },
+        {
+          type: "input",
+          name: "id",
+          message: `What is your intern's ID?`
+        },
+        {
+          type: "input",
+          name: "email",
+          message: `What is your intern's email?`
+        },
+        {
+          type: "input",
+          name: "school",
+          message: `What is your intern's school?`
+        }
+      ]).then((answers)=>{
+        let intern = new Intern(answers.name, answers.id, answers.email,answers.school);
+        team.splice(team.length-1,0,intern.getHTML());
+        nextMember();
+      })
+    }
+    return;
+  });
 }
+
 /* ==========================================================*/
 //START OF APP SEQUENCE 
 /* ==========================================================*/
 initalize()
 .then((answers)=>{
   const manager = new Manager(answers.name, answers.id, answers.email,answers.officeNumber);
-  team.push(manager.getHTML());
-  
-})
+  team.splice(team.length-1,0,manager.getHTML());
+  nextMember()
+});
 
+////////////////////////////////////////////////////////////////////////////////////////////
