@@ -95,7 +95,7 @@ function nextMember(){
         nextMember();
       })
     }
-    return;
+    return console.log(team);
   });
 }
 
